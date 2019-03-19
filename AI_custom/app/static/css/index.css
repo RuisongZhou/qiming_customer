@@ -1,0 +1,220 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+	font-size: 12px;
+    background-repeat: no-repeat;
+    background-image: url(../img/background.png);
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+}
+* {
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+
+.wrapper {
+    min-width: 1000px;
+    border-radius: 3px;
+    box-shadow: 0 2px 9px rgba(0, 0, 0, .3);
+}
+.skin-box {
+	position: fixed;
+	top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 980px;
+	height: 90%;
+}
+.beibei-header {
+    position: relative;
+    height: 70px;
+    color: #ffffff;
+    background: #ff4965;
+    font-size: 16px;
+    overflow: hidden;
+    border-radius: 3px 3px 0 0;
+}
+.header-inner {
+	position: relative;
+	left: 0;
+	top: 0;
+	height: 100%;
+}
+.l-inner {
+	position: relative;
+	left: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	height: 40px;
+}
+
+
+.beibei-content {
+    position: relative;
+    height: calc(100% - 70px);
+    background: #ffffff;
+    border-radius: 0 0 3px 3px;
+}
+.mes-box {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+    border-radius: 0 0 10px 10px;
+    border-right: 1px solid #e6e6e6;
+}
+.mes-list {
+    height: 76%;
+    padding: 10px 0;
+    overflow-y: auto;
+}
+#mes-list::-webkit-scrollbar, #message-text::-webkit-scrollbar {
+    width: 6px;
+}
+#message-text::-webkit-scrollbar {
+    margin-right: 10px;
+}
+#mes-list::-webkit-scrollbar-thumb, #message-text::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+#mes-list::-webkit-scrollbar-thumb:hover, #message-text::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+.list-wrapper {
+    padding-bottom: 10px;
+}
+.item {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 0;
+}
+.left .user {
+    float: left;
+}
+.right .user {
+    float: right;
+}
+.user, .right .user img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+.left .user {
+    margin-left: 10px;
+    margin-right: 0;
+    background: #ff4965;
+}
+.right .user {
+    margin-left: 0;
+    margin-right: 10px;
+}
+.angle {
+    margin-top: 0;
+    width: 0;
+    height: 0;
+}
+.left .angle {
+    float: left;
+    margin-left: 3px;
+    margin-right: 0;
+    border-top: solid 9px #eee;
+    border-left: solid 8px #fff;
+    border-top-left-radius: 2px;
+}
+.right .angle {
+    float: right;
+    margin-left: 0;
+    margin-right: 3px;
+    border-top: solid 9px #fd657c;
+    border-right: solid 8px #fff;
+    border-top-right-radius: 2px;
+}
+.message {
+    margin-top: 0;
+    max-width: 425px;
+    word-wrap: break-word;
+    font-size: 12px;
+    padding: 10px;
+    line-height: 16px;
+}
+.left .message {
+    float: left;
+    margin-left: -1px;
+    border-radius: 0 3px 3px;
+    color: #000;
+    background: #eee;
+}
+.right .message {
+    float: right;
+    margin-right: -1px;
+    border-radius: 3px 0 3px 3px;
+    background: #fd657c;
+    color: #fff;
+}
+.mes-list .item:before, .mes-list .item:after {
+    content: " ";
+    display: table;
+}
+.mes-list .item:after {
+    clear: both;
+}
+.item p {
+    margin: 0;
+}
+
+.edit-box {
+    height: 24%;
+    min-height: 110px;
+    padding: 10px 10px 0 10px;
+    border-top: 1px solid #dedede;
+}
+.edit-box textarea {
+    display: inline-block;
+    height: 70px;
+    width: 100%;
+    color: rgb(51, 51, 51);
+    background: #ffffff;
+    font-size: 14px;
+    font-family: "Microsoft Yahei", 微软雅黑, Helvetica, Arial, sans-serif;
+    border: 0;
+    box-sizing: border-box;
+    resize: none;
+    outline: none;
+    overflow: auto;
+    cursor: text;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    letter-spacing: normal;
+    word-spacing: normal;
+}
+.edit-footer {
+    height: 32px;
+    line-height: 32px;
+    margin-top: 10px;
+}
+.button-groups {
+    float: right;
+}
+.send-btn {
+    display: inline-block;
+    width: 82px;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 10px;
+    background: #ff8fa0;
+    color: #ffc7d0;
+    border-radius: 2px;
+    text-align: center;
+}
+.active {
+    color: #fff;
+    background: #fd657c;
+}

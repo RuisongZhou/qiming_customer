@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>启明学院智能客服</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/index.css') }}" />
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="skin-box">
+			<div class="beibei-header">
+				<div class="header-inner">
+					<div class="l-inner"></div>
+				</div>
+			</div>
+			<div class="beibei-content mes-box">
+				<div class="mes-list" id="lm">
+					<div class="list-wrapper" id="lw">
+						<div class="item left">
+							<div class="chat-box">
+								<p class="user"></p>
+								<p class="angle"></p>
+								<div class="message">
+									<p>欢迎来到启明学院智能客服页面！</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="edit-box">
+					<textarea name = "text" id="message-text" placeholder='请简要描述你的问题，如"启明学院在哪"' onkeyup="emptyFunc(value)"></textarea>
+					<div class="edit-footer">
+						<div class="button-groups">
+							<a href="#" class="send-btn" id="send-im" onclick = "post_question()">发送</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+</body>
+<script src = "{{ url_for('static', filename='js/zepto.js') }}"></script>
+<script>
+var parentNode = $('.list-wrapper')[0]
+const emptyFunc = function(value) {
+	if(value == '') {
+		$(".send-btn").attr("class", "send-btn")
+	}
+	else{
+		if(window.event.keyCode != 13){
+			$(".send-btn").attr("class", "send-btn active")
+		}
+		else{
+		    post_question();
+		}
+	}
+}
+function post_question() {
+	var query = $("#message-text").val();
+	query = query.replace(/\r\n/g,"");
+	query = query.replace(/\n/g,"");
+    $.ajax({
+        type: 'POST',
+        url: "/send",
+        data: {'question': query},
+        success: function (data) {
+            var answer = '<div class="item left"><div class="chat-box"><p class="user"></p><p class="angle"></p><div class="message"><p>' + data + '</p></div></div></div>';
+            setTimeout(function() {
+                $(".list-wrapper").append(answer)
+                document.getElementById("lm").scrollTop = document.getElementById("lm").scrollHeight;
+            }, 500)
+        }
+    });
+    var html = '<div class="item right"><div class="chat-box"><p class="user"><img src="{{ url_for("static",filename="img/chat-logo1.png") }}" alt="chat"></p><p class="angle"></p><div class="message"><p>' + query + '</p></div></div></div>';
+	$(".list-wrapper").append(html);
+	$("#message-text").val('');
+}
+</script>
+</html>
