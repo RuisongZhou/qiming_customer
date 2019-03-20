@@ -92,5 +92,5 @@ if __name__ == '__main__':
         print('问    法：  ' + row[0])
         print('主 问 题：  ' + row[1])
         print('对应标答：  ' + loader.get_answer(row[2]))
-        print('')
+        print('')       
     print('============================')

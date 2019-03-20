@@ -58,6 +58,6 @@ def send_question(data):
             return "抱歉，听不懂您的问题"
 
 if __name__ == "__main__":
-    request = send_question("启明学院在哪")
+    request = send_question("启明学院有哪些公益活动？")
     print(request)
 
