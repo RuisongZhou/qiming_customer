@@ -11,13 +11,14 @@ import pickle
 
 def train():
     # 加载数据
-    loader = Dataloader('../启明学院智能客服知识库.xlsx', '知识库')
+    data = pd.read_csv('QA.csv', sep='\t')
+    loader = data.drop('answer',axis=1)
 
     #处理加载的数据，建立索引，去重
     sentince_list = []
     sentince_index = []
 
-    for st in loader._data_pool:
+    for st in loader.values:
         sentince_list.append(st[0])
         sentince_list.append(st[1])
         sentince_index.append((st[0],st[2]))
@@ -47,13 +48,14 @@ def train():
     sparse_result = tfidf_model.transform(document).todense()
     pickle.dump(tfidf_model,open("model.plk",'wb'))
     pickle.dump(sparse_result, open("vec.plk",'wb'))
-
+    pickle.dump((sentince_list,sentince_index,data['answer'].values),open("list.plk",'wb'))
 
 def predict(test_sentices):
     #测试句子转换
 
     tfidf_model = pickle.load(open("model.plk",'rb'))
     sparse_result = pickle.load(open("vec.plk",'rb'))
+    saveList = pickle.load(open("list.plk",'rb'))
     test_documents = []
     seg = pkuseg.pkuseg()
     for item_text in test_sentices:
@@ -62,27 +64,30 @@ def predict(test_sentices):
     test_document = [" ".join(sent0) for sent0 in test_documents]
     result = tfidf_model.transform(test_document).todense()
 
-    sentince_list = []
-    sentince_index = []
-    loader = Dataloader('../启明学院智能客服知识库.xlsx', '知识库')
-    for st in loader._data_pool:
-        sentince_list.append(st[0])
-        sentince_list.append(st[1])
-        sentince_index.append((st[0],st[2]))
-        sentince_index.append((st[1],st[2]))
-    sentince_list = list(set(sentince_list))
-    sentince_index = list(set(sentince_index))
-    sentince_index = {each[0]:each[1] for each in sentince_index}
+    sentince_list = saveList[0]
+    sentince_index = saveList[1]
+    data = saveList[2]
+    # data = pd.read_csv('QA.csv', sep='\t')
+    # loader = data.drop('answer',axis=1)
+    # for st in loader.values:
+    #     sentince_list.append(st[0])
+    #     sentince_list.append(st[1])
+    #     sentince_index.append((st[0],st[2]))
+    #     sentince_index.append((st[1],st[2]))
+    # sentince_list = list(set(sentince_list))
+    # sentince_index = list(set(sentince_index))
+    # sentince_index = {each[0]:each[1] for each in sentince_index}
 
     #结果测试
     ans = result*sparse_result.T
     ans = ans.argmax(axis=1)
     answer = sentince_list[ans.tolist()[0][0]]
-    answer = loader.get_answer(sentince_index[answer])
+    answer = data[sentince_index[answer]]
     print(answer)
+    return answer
 
 
 if __name__ == "__main__":
-    train()
-    predict(['启明学院是什么'])
+    #train()
+    predict(['刘玉老师是谁'])
 

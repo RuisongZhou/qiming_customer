@@ -85,12 +85,7 @@ class Dataloader:
 
 if __name__ == '__main__':
     loader = Dataloader('../启明学院智能客服知识库.xlsx', '知识库')
-    print('数据集中一共有 {:d} 种问法。'.format(len(loader)))
-    samp = loader.sample(3)
-    print('从数据中共选取了 3 行：')
-    for row in samp:
-        print('问    法：  ' + row[0])
-        print('主 问 题：  ' + row[1])
-        print('对应标答：  ' + loader.get_answer(row[2]))
-        print('')       
-    print('============================')
+    answer = loader._answer_list
+    question = pd.DataFrame(loader._data_pool)
+    qa = pd.concat([question,answer],axis=1)
+    qa.to_csv('QA.csv',index=0,sep='\t')
